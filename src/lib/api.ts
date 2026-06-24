@@ -1,4 +1,4 @@
-import type { Product, ProductInput, Sale, SaleWithItems, DailySummary, AppSettings, ApiResult, OpenFoodFactsProduct } from '@/types'
+import type { Product, ProductInput, Sale, SaleWithItems, DailySummary, AppSettings, ApiResult, OpenFoodFactsProduct, DashboardData, ImportProgress } from '@/types'
 
 type API = {
   products: {
@@ -20,6 +20,21 @@ type API = {
     dailySummary(date: string): Promise<DailySummary>
     exportCsv(sales: Sale[]): Promise<string | null>
     exportPdf(sales: Sale[]): Promise<string | null>
+  }
+  import: {
+    csv(): Promise<ImportProgress | null>
+  }
+  dashboard: {
+    summary(): Promise<DashboardData>
+  }
+  receipt: {
+    print(saleId: number): Promise<boolean>
+    download(saleId: number): Promise<string | null>
+  }
+  updater: {
+    check(): Promise<unknown>
+    download(): Promise<boolean>
+    install(): Promise<void>
   }
   settings: {
     get(): Promise<AppSettings>

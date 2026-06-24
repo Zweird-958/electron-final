@@ -1,0 +1,11 @@
+{
+	"$schema": "https://unpkg.com/knip@6/schema.json",
+	"entry": [
+		"src/components/ui/**/*.{ts,tsx}",
+		"electron/main.ts",
+		"electron/preload.ts",
+		"src/i18n/index.ts"
+	],
+	"ignoreDependencies": ["@electron/rebuild"],
+	"tags": ["-lintignore"]
+}

@@ -1,5 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { Search, Loader2, CheckCircle, AlertCircle } from "lucide-react";
 import {
 	Dialog,
@@ -14,24 +16,38 @@ import { Field, FieldLabel, FieldError } from "@/components/ui/field";
 import { api } from "@/lib/api";
 import { useTranslation } from "react-i18next";
 import type { Product, ProductInput } from "@/types";
-import { useState } from "react";
 
 type Props = {
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
 	product?: Product | null;
 	onSave: (input: ProductInput, id?: number) => Promise<void>;
-}
+};
 
-type FormValues = {
-	barcode: string;
-	name: string;
-	brand: string;
-	price: string;
-	stock: string;
-	category: string;
-	image_url: string;
-}
+const productSchema = z.object({
+	barcode: z.string().optional(),
+	name: z.string().min(1, "validation.required"),
+	brand: z.string().optional(),
+	price: z.number("validation.priceInvalid").min(0, "validation.priceInvalid"),
+	stock: z
+		.number("validation.stockInvalid")
+		.int()
+		.min(0, "validation.stockInvalid"),
+	category: z.string().optional(),
+	image_url: z.string().url().optional().or(z.literal("")),
+});
+
+type FormValues = z.infer<typeof productSchema>;
+
+const EMPTY_VALUES: FormValues = {
+	barcode: "",
+	name: "",
+	brand: "",
+	price: 0,
+	stock: 0,
+	category: "",
+	image_url: "",
+};
 
 export const ProductFormDialog = ({
 	open,
@@ -52,15 +68,8 @@ export const ProductFormDialog = ({
 		watch,
 		formState: { errors, isSubmitting },
 	} = useForm<FormValues>({
-		defaultValues: {
-			barcode: "",
-			name: "",
-			brand: "",
-			price: "",
-			stock: "0",
-			category: "",
-			image_url: "",
-		},
+		resolver: zodResolver(productSchema),
+		defaultValues: EMPTY_VALUES,
 	});
 
 	const barcodeValue = watch("barcode");
@@ -72,28 +81,20 @@ export const ProductFormDialog = ({
 					barcode: product.barcode ?? "",
 					name: product.name,
 					brand: product.brand ?? "",
-					price: product.price.toString(),
-					stock: product.stock.toString(),
+					price: product.price,
+					stock: product.stock,
 					category: product.category ?? "",
 					image_url: product.image_url ?? "",
 				});
 			} else {
-				reset({
-					barcode: "",
-					name: "",
-					brand: "",
-					price: "",
-					stock: "0",
-					category: "",
-					image_url: "",
-				});
+				reset(EMPTY_VALUES);
 			}
 			setLookupStatus("idle");
 		}
 	}, [product, open, reset]);
 
 	const handleLookup = async () => {
-		if (!barcodeValue.trim()) return;
+		if (!barcodeValue?.trim()) return;
 		setLookupStatus("loading");
 
 		const result = await api.products.lookupBarcode(barcodeValue.trim());
@@ -102,8 +103,8 @@ export const ProductFormDialog = ({
 			const p = result.data as Product;
 			setValue("name", p.name);
 			setValue("brand", p.brand ?? "");
-			setValue("price", p.price.toString());
-			setValue("stock", p.stock.toString());
+			setValue("price", p.price);
+			setValue("stock", p.stock);
 			setValue("category", p.category ?? "");
 			setValue("image_url", p.image_url ?? "");
 			setLookupStatus("found");
@@ -130,19 +131,15 @@ export const ProductFormDialog = ({
 	};
 
 	const onSubmit = async (data: FormValues) => {
-		const priceNum = parseFloat(data.price);
-		const stockNum = parseInt(data.stock, 10);
-		if (isNaN(priceNum) || priceNum < 0) return;
-
 		await onSave(
 			{
-				barcode: data.barcode.trim() || null,
+				barcode: data.barcode?.trim() || null,
 				name: data.name.trim(),
-				brand: data.brand.trim() || null,
-				price: priceNum,
-				stock: isNaN(stockNum) ? 0 : stockNum,
-				category: data.category.trim() || null,
-				image_url: data.image_url.trim() || null,
+				brand: data.brand?.trim() || null,
+				price: data.price,
+				stock: data.stock,
+				category: data.category?.trim() || null,
+				image_url: data.image_url?.trim() || null,
 			},
 			product?.id,
 		);
@@ -168,7 +165,7 @@ export const ProductFormDialog = ({
 								type="button"
 								variant="outline"
 								onClick={handleLookup}
-								disabled={lookupStatus === "loading" || !barcodeValue.trim()}
+								disabled={lookupStatus === "loading" || !barcodeValue?.trim()}
 							>
 								{lookupStatus === "loading" ? (
 									<Loader2 className="size-4 animate-spin" />
@@ -200,13 +197,12 @@ export const ProductFormDialog = ({
 					{/* Name */}
 					<Field data-invalid={!!errors.name}>
 						<FieldLabel>{t("products.name")} *</FieldLabel>
-						<Input
-							{...register("name", {
-								required: t("products.name") + " requis",
-							})}
-							aria-invalid={!!errors.name}
+						<Input {...register("name")} aria-invalid={!!errors.name} />
+						<FieldError
+							errors={[
+								errors.name ? { message: t(errors.name.message!) } : undefined,
+							]}
 						/>
-						<FieldError errors={[errors.name]} />
 					</Field>
 
 					{/* Brand + Price */}
@@ -221,13 +217,16 @@ export const ProductFormDialog = ({
 								type="number"
 								step="0.01"
 								min="0"
-								{...register("price", {
-									required: t("products.price") + " requis",
-									validate: (v) => parseFloat(v) >= 0 || "Prix invalide",
-								})}
+								{...register("price", { valueAsNumber: true })}
 								aria-invalid={!!errors.price}
 							/>
-							<FieldError errors={[errors.price]} />
+							<FieldError
+								errors={[
+									errors.price
+										? { message: t(errors.price.message!) }
+										: undefined,
+								]}
+							/>
 						</Field>
 					</div>
 
@@ -238,13 +237,16 @@ export const ProductFormDialog = ({
 							type="number"
 							min="0"
 							step="1"
-							{...register("stock", {
-								required: "Stock requis",
-								validate: (v) => parseInt(v, 10) >= 0 || "Stock invalide",
-							})}
+							{...register("stock", { valueAsNumber: true })}
 							aria-invalid={!!errors.stock}
 						/>
-						<FieldError errors={[errors.stock]} />
+						<FieldError
+							errors={[
+								errors.stock
+									? { message: t(errors.stock.message!) }
+									: undefined,
+							]}
+						/>
 					</Field>
 
 					{/* Category */}
@@ -254,9 +256,16 @@ export const ProductFormDialog = ({
 					</Field>
 
 					{/* Image URL */}
-					<Field>
+					<Field data-invalid={!!errors.image_url}>
 						<FieldLabel>{t("products.image")}</FieldLabel>
 						<Input {...register("image_url")} placeholder="https://..." />
+						<FieldError
+							errors={[
+								errors.image_url
+									? { message: t(errors.image_url.message!) }
+									: undefined,
+							]}
+						/>
 					</Field>
 
 					<DialogFooter>

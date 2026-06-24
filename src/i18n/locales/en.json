@@ -3,6 +3,7 @@
     "pos": "POS",
     "products": "Products",
     "sales": "Sales",
+    "dashboard": "Dashboard",
     "settings": "Settings"
   },
   "pos": {
@@ -38,7 +39,12 @@
     "cancel": "Cancel",
     "deleteConfirm": "Delete this product?",
     "empty": "No products in catalog.",
-    "count": "products"
+    "count": "products",
+    "import": "Import CSV",
+    "importSuccess": "Import complete: {{success}} product(s) added",
+    "importErrors": "{{count}} line(s) skipped",
+    "importNoFile": "No file selected",
+    "importInProgress": "Importing…"
   },
   "sales": {
     "title": "Sales History",
@@ -58,7 +64,21 @@
     "summary": "Daily summary",
     "summaryRevenue": "Daily revenue",
     "summaryCount": "Sales",
-    "summaryTop": "Top products"
+    "summaryTop": "Top products",
+    "printReceipt": "Print receipt",
+    "downloadReceipt": "Download receipt"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "todayRevenue": "Today's revenue",
+    "todaySales": "Sales today",
+    "todayItems": "Items sold",
+    "vsYesterday": "vs yesterday",
+    "topProducts": "Top products today",
+    "recentSales": "Recent sales",
+    "noData": "No data for today",
+    "revenue": "Revenue",
+    "quantity": "Qty"
   },
   "settings": {
     "title": "Settings",
@@ -67,7 +87,13 @@
     "themeLight": "Light",
     "themeDark": "Dark",
     "themeSystem": "System",
-    "saved": "Settings saved"
+    "saved": "Settings saved",
+    "updates": "Updates",
+    "checkUpdates": "Check for updates",
+    "upToDate": "You're up to date",
+    "updateAvailable": "Update available!",
+    "downloading": "Downloading…",
+    "restartToUpdate": "Restart to update"
   },
   "common": {
     "confirm": "Confirm",

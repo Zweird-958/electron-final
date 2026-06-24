@@ -3,6 +3,7 @@
     "pos": "Caisse",
     "products": "Produits",
     "sales": "Ventes",
+    "dashboard": "Tableau de bord",
     "settings": "Paramètres"
   },
   "pos": {
@@ -38,7 +39,12 @@
     "cancel": "Annuler",
     "deleteConfirm": "Supprimer ce produit ?",
     "empty": "Aucun produit dans le catalogue.",
-    "count": "produits"
+    "count": "produits",
+    "import": "Importer CSV",
+    "importSuccess": "Import terminé : {{success}} produit(s) ajouté(s)",
+    "importErrors": "{{count}} ligne(s) ignorée(s)",
+    "importNoFile": "Aucun fichier sélectionné",
+    "importInProgress": "Import en cours…"
   },
   "sales": {
     "title": "Historique des ventes",
@@ -58,7 +64,21 @@
     "summary": "Résumé du jour",
     "summaryRevenue": "Chiffre du jour",
     "summaryCount": "Ventes",
-    "summaryTop": "Top produits"
+    "summaryTop": "Top produits",
+    "printReceipt": "Imprimer le ticket",
+    "downloadReceipt": "Télécharger le ticket"
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "todayRevenue": "Chiffre d'aujourd'hui",
+    "todaySales": "Ventes aujourd'hui",
+    "todayItems": "Articles vendus",
+    "vsYesterday": "vs hier",
+    "topProducts": "Top produits du jour",
+    "recentSales": "Dernières ventes",
+    "noData": "Aucune donnée pour aujourd'hui",
+    "revenue": "C.A.",
+    "quantity": "Qté"
   },
   "settings": {
     "title": "Paramètres",
@@ -67,7 +87,13 @@
     "themeLight": "Clair",
     "themeDark": "Sombre",
     "themeSystem": "Système",
-    "saved": "Paramètres sauvegardés"
+    "saved": "Paramètres sauvegardés",
+    "updates": "Mises à jour",
+    "checkUpdates": "Vérifier les mises à jour",
+    "upToDate": "Vous êtes à jour",
+    "updateAvailable": "Mise à jour disponible !",
+    "downloading": "Téléchargement en cours…",
+    "restartToUpdate": "Redémarrer pour mettre à jour"
   },
   "common": {
     "confirm": "Confirmer",

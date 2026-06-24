@@ -104,7 +104,10 @@ function createWindow() {
 
 // ─── Menu ─────────────────────────────────────────────────
 function createMenu() {
+  const isMac = process.platform === 'darwin'
+
   const template: Electron.MenuItemConstructorOptions[] = [
+    ...(isMac ? [{ role: 'appMenu' as const }] : []),
     {
       label: 'Caisse',
       submenu: [
@@ -113,18 +116,16 @@ function createMenu() {
           accelerator: 'CmdOrCtrl+N',
           click: () => win?.webContents.send('menu:new-sale'),
         },
-        { type: 'separator' },
-        {
+        { type: 'separator' as const },
+        ...(!isMac ? [{
           label: 'Quitter',
-          click: () => {
-            isQuiting = true
-            app.quit()
-          },
-        },
+          accelerator: 'CmdOrCtrl+Q',
+          click: () => { isQuiting = true; app.quit() },
+        }] : []),
       ],
     },
-    { role: 'editMenu' },
-    { role: 'viewMenu' },
+    { role: 'editMenu' as const },
+    { role: 'viewMenu' as const },
   ]
 
   Menu.setApplicationMenu(Menu.buildFromTemplate(template))

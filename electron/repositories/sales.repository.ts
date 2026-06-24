@@ -58,3 +58,31 @@ export function findItemsBySaleId(saleId: number): SaleItem[] {
 export function findTopProductsByDate(date: string): { name: string; quantity: number }[] {
   return queryTopProductsByDate.all(date) as { name: string; quantity: number }[]
 }
+
+const queryTopProductsRevenueByDate = db.prepare(`
+  SELECT si.product_name as name, SUM(si.quantity) as quantity, SUM(si.total) as revenue
+  FROM sale_items si
+  JOIN sales s ON s.id = si.sale_id
+  WHERE date(s.created_at) = date(?)
+  GROUP BY si.product_name
+  ORDER BY revenue DESC
+  LIMIT 10
+`)
+
+const queryTotalItemsSoldByDate = db.prepare(`
+  SELECT COALESCE(SUM(items_count), 0) as total
+  FROM sales WHERE date(created_at) = date(?)
+`)
+
+const queryRecentSales = db.prepare(
+  'SELECT id, total, items_count, created_at FROM sales ORDER BY created_at DESC LIMIT 10'
+)
+
+export const findTopProductsRevenueByDate = (date: string): { name: string; quantity: number; revenue: number }[] =>
+  queryTopProductsRevenueByDate.all(date) as { name: string; quantity: number; revenue: number }[]
+
+export const totalItemsSoldByDate = (date: string): number =>
+  (queryTotalItemsSoldByDate.get(date) as { total: number }).total
+
+export const findRecentSales = (): { id: number; total: number; items_count: number; created_at: string }[] =>
+  queryRecentSales.all() as { id: number; total: number; items_count: number; created_at: string }[]

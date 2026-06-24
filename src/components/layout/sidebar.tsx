@@ -1,10 +1,11 @@
 import { NavLink } from 'react-router-dom'
-import { ShoppingCart, Package, Receipt, Settings } from 'lucide-react'
+import { ShoppingCart, Package, Receipt, LayoutDashboard, Settings } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
 
 const links = [
   { to: '/', icon: ShoppingCart, labelKey: 'nav.pos' },
+  { to: '/dashboard', icon: LayoutDashboard, labelKey: 'nav.dashboard' },
   { to: '/products', icon: Package, labelKey: 'nav.products' },
   { to: '/sales', icon: Receipt, labelKey: 'nav.sales' },
   { to: '/settings', icon: Settings, labelKey: 'nav.settings' },
