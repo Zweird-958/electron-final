@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
-import { FileDown, FileText, Eye, TrendingUp, ShoppingBag, Star } from 'lucide-react'
+import { FileDown, FileText, Eye } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Table,
   TableBody,
@@ -13,6 +12,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { SaleDetailDialog } from '@/components/sales/sale-detail-dialog'
+import { SalesSummaryCards } from '@/components/sales/sales-summary-cards'
 import { useSales } from '@/hooks/use-sales'
 import { useTranslation } from 'react-i18next'
 import type { DailySummary } from '@/types'
@@ -51,54 +51,7 @@ export const SalesPage = () => {
         </div>
       </div>
 
-      {summary && (
-        <div className="grid grid-cols-3 gap-4 border-b border-border px-6 py-4">
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-                <TrendingUp className="size-4" />
-                {t('sales.summaryRevenue')}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-2xl font-bold">{summary.total_revenue.toFixed(2)} €</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-                <ShoppingBag className="size-4" />
-                {t('sales.summaryCount')}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-2xl font-bold">{summary.total_sales}</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-                <Star className="size-4" />
-                {t('sales.summaryTop')}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {summary.top_products.length > 0 ? (
-                <ul className="space-y-1">
-                  {summary.top_products.slice(0, 3).map((p) => (
-                    <li key={p.name} className="flex items-center justify-between text-sm">
-                      <span className="truncate">{p.name}</span>
-                      <Badge variant="secondary">{p.quantity}</Badge>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="text-sm text-muted-foreground">—</p>
-              )}
-            </CardContent>
-          </Card>
-        </div>
-      )}
+      {summary && <SalesSummaryCards summary={summary} />}
 
       <div className="border-b border-border px-6 py-3">
         <div className="flex items-center gap-3">
