@@ -1,0 +1,86 @@
+{
+  "nav": {
+    "pos": "Caisse",
+    "products": "Produits",
+    "sales": "Ventes",
+    "settings": "Paramètres"
+  },
+  "pos": {
+    "title": "Point de vente",
+    "search": "Rechercher un produit ou scanner un code-barres…",
+    "cart": "Panier",
+    "cartEmpty": "Le panier est vide",
+    "cartTotal": "Total",
+    "cartValidate": "Encaisser",
+    "cartClear": "Vider",
+    "cartItems": "articles",
+    "saleSuccess": "Vente enregistrée !"
+  },
+  "products": {
+    "title": "Catalogue produits",
+    "add": "Ajouter un produit",
+    "edit": "Modifier le produit",
+    "search": "Rechercher…",
+    "barcode": "Code-barres",
+    "barcodeLookup": "Chercher",
+    "barcodeFound": "Produit trouvé sur OpenFoodFacts !",
+    "barcodeNotFound": "Produit introuvable — saisissez les infos manuellement.",
+    "barcodeOffline": "Pas de connexion — saisissez les infos manuellement.",
+    "name": "Nom",
+    "brand": "Marque",
+    "price": "Prix (€)",
+    "stock": "Stock",
+    "stockOut": "Rupture",
+    "stockLow": "Stock bas",
+    "category": "Catégorie",
+    "image": "URL image",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "deleteConfirm": "Supprimer ce produit ?",
+    "empty": "Aucun produit dans le catalogue.",
+    "count": "produits"
+  },
+  "sales": {
+    "title": "Historique des ventes",
+    "date": "Date",
+    "filterAll": "Toutes",
+    "filterToday": "Aujourd'hui",
+    "items": "articles",
+    "total": "Total",
+    "detail": "Détail du ticket",
+    "product": "Produit",
+    "qty": "Qté",
+    "unitPrice": "P.U.",
+    "subtotal": "Sous-total",
+    "exportCsv": "Exporter CSV",
+    "exportPdf": "Exporter PDF",
+    "empty": "Aucune vente enregistrée.",
+    "summary": "Résumé du jour",
+    "summaryRevenue": "Chiffre du jour",
+    "summaryCount": "Ventes",
+    "summaryTop": "Top produits"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "language": "Langue",
+    "theme": "Thème",
+    "themeLight": "Clair",
+    "themeDark": "Sombre",
+    "themeSystem": "Système",
+    "saved": "Paramètres sauvegardés"
+  },
+  "common": {
+    "confirm": "Confirmer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "actions": "Actions",
+    "loading": "Chargement…",
+    "error": "Erreur"
+  },
+  "validation": {
+    "required": "Ce champ est requis",
+    "priceInvalid": "Prix invalide",
+    "stockInvalid": "Stock invalide"
+  }
+}

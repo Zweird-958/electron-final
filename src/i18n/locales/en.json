@@ -1,0 +1,86 @@
+{
+  "nav": {
+    "pos": "POS",
+    "products": "Products",
+    "sales": "Sales",
+    "settings": "Settings"
+  },
+  "pos": {
+    "title": "Point of Sale",
+    "search": "Search a product or scan a barcode…",
+    "cart": "Cart",
+    "cartEmpty": "Cart is empty",
+    "cartTotal": "Total",
+    "cartValidate": "Checkout",
+    "cartClear": "Clear",
+    "cartItems": "items",
+    "saleSuccess": "Sale recorded!"
+  },
+  "products": {
+    "title": "Product Catalog",
+    "add": "Add product",
+    "edit": "Edit product",
+    "search": "Search…",
+    "barcode": "Barcode",
+    "barcodeLookup": "Lookup",
+    "barcodeFound": "Product found on OpenFoodFacts!",
+    "barcodeNotFound": "Product not found — enter info manually.",
+    "barcodeOffline": "No connection — enter info manually.",
+    "name": "Name",
+    "brand": "Brand",
+    "price": "Price (€)",
+    "stock": "Stock",
+    "stockOut": "Out of stock",
+    "stockLow": "Low stock",
+    "category": "Category",
+    "image": "Image URL",
+    "save": "Save",
+    "cancel": "Cancel",
+    "deleteConfirm": "Delete this product?",
+    "empty": "No products in catalog.",
+    "count": "products"
+  },
+  "sales": {
+    "title": "Sales History",
+    "date": "Date",
+    "filterAll": "All",
+    "filterToday": "Today",
+    "items": "items",
+    "total": "Total",
+    "detail": "Ticket Detail",
+    "product": "Product",
+    "qty": "Qty",
+    "unitPrice": "Unit price",
+    "subtotal": "Subtotal",
+    "exportCsv": "Export CSV",
+    "exportPdf": "Export PDF",
+    "empty": "No sales recorded.",
+    "summary": "Daily summary",
+    "summaryRevenue": "Daily revenue",
+    "summaryCount": "Sales",
+    "summaryTop": "Top products"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "theme": "Theme",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeSystem": "System",
+    "saved": "Settings saved"
+  },
+  "common": {
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "actions": "Actions",
+    "loading": "Loading…",
+    "error": "Error"
+  },
+  "validation": {
+    "required": "This field is required",
+    "priceInvalid": "Invalid price",
+    "stockInvalid": "Invalid stock"
+  }
+}
