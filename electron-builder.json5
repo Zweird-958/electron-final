@@ -12,6 +12,7 @@
   ],
   "mac": {
     "target": ["dmg"],
+    "icon": "assets/icon.icns",
     "artifactName": "${productName}-Mac-${version}-Installer.${ext}"
   },
   "win": {
@@ -21,6 +22,7 @@
         "arch": ["x64"]
       }
     ],
+    "icon": "assets/icon.ico",
     "artifactName": "${productName}-Windows-${version}-Setup.${ext}"
   },
   "nsis": {
@@ -32,6 +34,7 @@
   },
   "linux": {
     "target": ["AppImage"],
+    "icon": "assets/icon.png",
     "artifactName": "${productName}-Linux-${version}.${ext}"
   }
 }

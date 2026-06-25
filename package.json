@@ -11,22 +11,6 @@
 		"knip": "knip",
 		"postinstall": "electron-builder install-app-deps"
 	},
-	"build": {
-		"appId": "com.julien.caisse",
-		"directories": {
-			"output": "dist"
-		},
-		"productName": "Caisse",
-		"win": {
-			"target": "nsis"
-		},
-		"mac": {
-			"target": "dmg"
-		},
-		"linux": {
-			"target": "AppImage"
-		}
-	},
 	"dependencies": {
 		"@base-ui/react": "^1.6.0",
 		"@fontsource-variable/geist": "^5.2.9",
