@@ -8,7 +8,7 @@ import {
 	SETTINGS,
 	SYSTEM,
 	UPDATER,
-} from "./channels";
+} from "../src/channels";
 
 const api = {
 	products: {

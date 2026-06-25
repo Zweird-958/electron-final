@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Plus, Search, Upload, Loader2 } from "lucide-react";
 import { Button } from "@/renderer/components/ui/button";
 import { Input } from "@/renderer/components/ui/input";
@@ -13,12 +14,21 @@ import type { Product, ProductInput } from "@/types";
 
 export const ProductsPage = () => {
 	const { t } = useTranslation();
+	const location = useLocation();
 	const { products, loading, search, create, update, remove, refresh } =
 		useProducts();
 	const [dialogOpen, setDialogOpen] = useState(false);
 	const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 	const [searchQuery, setSearchQuery] = useState("");
 	const [importing, setImporting] = useState(false);
+
+	useEffect(() => {
+		if (location.state?.openAddProduct) {
+			setEditingProduct(null);
+			setDialogOpen(true);
+			window.history.replaceState({}, "");
+		}
+	}, [location.state]);
 
 	const handleSearch = (value: string) => {
 		setSearchQuery(value);

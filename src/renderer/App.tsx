@@ -10,6 +10,7 @@ import { DashboardPage } from "@/renderer/pages/dashboard";
 import { ProductsPage } from "@/renderer/pages/products";
 import { SalesPage } from "@/renderer/pages/sales";
 import { SettingsPage } from "@/renderer/pages/settings";
+import { MenuNavigator } from "@/renderer/components/menu-navigator";
 
 const applyTheme = (theme: string) => {
 	const root = document.documentElement;
@@ -40,6 +41,7 @@ const App = () => {
 	return (
 		<TooltipProvider>
 			<HashRouter>
+				<MenuNavigator />
 				<Routes>
 					<Route element={<AppLayout />}>
 						<Route path="/" element={<PosPage />} />

@@ -6,3 +6,4 @@ export { IMPORT } from "./import.channels";
 export { DASHBOARD } from "./dashboard.channels";
 export { RECEIPT } from "./receipt.channels";
 export { UPDATER } from "./updater.channels";
+export { MENU } from "./menu.channels";
