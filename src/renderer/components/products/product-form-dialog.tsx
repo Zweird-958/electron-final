@@ -9,10 +9,10 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogFooter,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Field, FieldLabel, FieldError } from "@/components/ui/field";
+} from "@/renderer/components/ui/dialog";
+import { Button } from "@/renderer/components/ui/button";
+import { Input } from "@/renderer/components/ui/input";
+import { Field, FieldLabel, FieldError } from "@/renderer/components/ui/field";
 import { api } from "@/lib/api";
 import { useTranslation } from "react-i18next";
 import type { Product, ProductInput } from "@/types";

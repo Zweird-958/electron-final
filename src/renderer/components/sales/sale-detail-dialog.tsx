@@ -6,7 +6,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogFooter,
-} from "@/components/ui/dialog";
+} from "@/renderer/components/ui/dialog";
 import {
 	Table,
 	TableBody,
@@ -14,8 +14,8 @@ import {
 	TableHead,
 	TableHeader,
 	TableRow,
-} from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
+} from "@/renderer/components/ui/table";
+import { Button } from "@/renderer/components/ui/button";
 import { api } from "@/lib/api";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";

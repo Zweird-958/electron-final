@@ -1,9 +1,9 @@
 import { app, BrowserWindow, Menu, Tray, nativeImage, globalShortcut, shell } from 'electron'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
-import log from './services/logger'
-import { registerAllHandlers } from './ipc'
-import * as settingsService from './services/settings.service'
+import log from '../src/services/logger'
+import { registerAllHandlers } from '../src/ipc'
+import * as settingsService from '../src/services/settings.service'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
