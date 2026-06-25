@@ -2,7 +2,6 @@ import { useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { toast } from "sonner"
 
-import { UpdaterCard } from "@/renderer/components/settings/updater-card"
 import {
   Card,
   CardContent,
@@ -113,7 +112,6 @@ export const SettingsPage = () => {
         </CardContent>
       </Card>
 
-      <UpdaterCard />
     </div>
   )
 }

@@ -5,7 +5,6 @@ import { register as registerReceipt } from "./receipt.ipc"
 import { register as registerSales } from "./sales.ipc"
 import { register as registerSettings } from "./settings.ipc"
 import { register as registerSystem } from "./system.ipc"
-import { register as registerUpdater } from "./updater.ipc"
 
 type GetWin = () => Electron.BrowserWindow | null
 
@@ -17,5 +16,4 @@ export const registerAllHandlers = (getWin: GetWin) => {
   registerImport(getWin)
   registerDashboard()
   registerReceipt(getWin)
-  registerUpdater(getWin)
 }
