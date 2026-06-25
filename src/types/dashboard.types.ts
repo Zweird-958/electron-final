@@ -9,7 +9,12 @@ export type DashboardData = {
     salesCount: number
   }
   topProducts: { name: string; quantity: number; revenue: number }[]
-  recentSales: { id: number; total: number; items_count: number; created_at: string }[]
+  recentSales: {
+    id: number
+    total: number
+    items_count: number
+    created_at: string
+  }[]
 }
 
 export type ImportProgress = {

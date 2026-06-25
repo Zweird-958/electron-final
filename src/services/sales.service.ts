@@ -1,7 +1,11 @@
-import db from './db'
-import * as salesRepo from '../repositories/sales.repository'
-import * as productsService from './products.service'
-import type { Sale, SaleWithItems, DailySummary } from '../../src/types/sale.types'
+import type {
+  DailySummary,
+  Sale,
+  SaleWithItems,
+} from "../../src/types/sale.types"
+import * as salesRepo from "../repositories/sales.repository"
+import db from "./db"
+import * as productsService from "./products.service"
 
 type CreateSaleInput = {
   items: {
@@ -13,13 +17,13 @@ type CreateSaleInput = {
 }
 
 const createSaleTx = db.transaction((input: CreateSaleInput) => {
-  const total = input.items.reduce((sum, i) => sum + i.quantity * i.unit_price, 0)
+  const total = input.items.reduce(
+    (sum, i) => sum + i.quantity * i.unit_price,
+    0,
+  )
   const itemsCount = input.items.reduce((sum, i) => sum + i.quantity, 0)
 
-  const saleId = salesRepo.insertSale(
-    Math.round(total * 100) / 100,
-    itemsCount
-  )
+  const saleId = salesRepo.insertSale(Math.round(total * 100) / 100, itemsCount)
 
   for (const item of input.items) {
     const itemTotal = Math.round(item.quantity * item.unit_price * 100) / 100
@@ -29,7 +33,7 @@ const createSaleTx = db.transaction((input: CreateSaleInput) => {
       item.product_name,
       item.quantity,
       item.unit_price,
-      itemTotal
+      itemTotal,
     )
     productsService.decrementStock(item.product_id, item.quantity)
   }

@@ -1,5 +1,5 @@
-import * as productsRepo from '../repositories/products.repository'
-import type { Product, ProductInput } from '../../src/types/product.types'
+import type { Product, ProductInput } from "../../src/types/product.types"
+import * as productsRepo from "../repositories/products.repository"
 
 export function list(): Product[] {
   return productsRepo.findAll()
@@ -25,7 +25,7 @@ export function create(input: ProductInput): number {
     input.price,
     input.stock ?? 0,
     input.image_url ?? null,
-    input.category ?? null
+    input.category ?? null,
   )
 }
 
@@ -38,7 +38,7 @@ export function update(id: number, input: ProductInput): void {
     input.price,
     input.stock ?? 0,
     input.image_url ?? null,
-    input.category ?? null
+    input.category ?? null,
   )
 }
 

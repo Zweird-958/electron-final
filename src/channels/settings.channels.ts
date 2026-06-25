@@ -1,4 +1,4 @@
 export const SETTINGS = {
-  GET: 'settings:get',
-  SET: 'settings:set',
+  GET: "settings:get",
+  SET: "settings:set",
 } as const

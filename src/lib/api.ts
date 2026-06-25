@@ -1,4 +1,15 @@
-import type { Product, ProductInput, Sale, SaleWithItems, DailySummary, AppSettings, ApiResult, OpenFoodFactsProduct, DashboardData, ImportProgress } from '@/types'
+import type {
+  ApiResult,
+  AppSettings,
+  DailySummary,
+  DashboardData,
+  ImportProgress,
+  OpenFoodFactsProduct,
+  Product,
+  ProductInput,
+  Sale,
+  SaleWithItems,
+} from "@/types"
 
 type API = {
   products: {
@@ -8,12 +19,23 @@ type API = {
     create(input: ProductInput): Promise<number>
     update(id: number, input: ProductInput): Promise<void>
     delete(id: number): Promise<void>
-    lookupBarcode(barcode: string): Promise<
-      (ApiResult<OpenFoodFactsProduct> | ApiResult<Product>) & { source: 'local' | 'openfoodfacts' }
+    lookupBarcode(
+      barcode: string,
+    ): Promise<
+      (ApiResult<OpenFoodFactsProduct> | ApiResult<Product>) & {
+        source: "local" | "openfoodfacts"
+      }
     >
   }
   sales: {
-    create(input: { items: { product_id: number; product_name: string; quantity: number; unit_price: number }[] }): Promise<number>
+    create(input: {
+      items: {
+        product_id: number
+        product_name: string
+        quantity: number
+        unit_price: number
+      }[]
+    }): Promise<number>
     list(): Promise<Sale[]>
     get(id: number): Promise<SaleWithItems | undefined>
     getByDate(date: string): Promise<Sale[]>

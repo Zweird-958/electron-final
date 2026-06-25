@@ -1,16 +1,19 @@
-import fs from 'node:fs'
-import path from 'node:path'
-import { app, BrowserWindow, dialog, shell } from 'electron'
-import * as salesService from './sales.service'
-import type { SaleWithItems } from '../../src/types/sale.types'
+import { BrowserWindow, app, dialog, shell } from "electron"
+import fs from "node:fs"
+import path from "node:path"
+
+import type { SaleWithItems } from "../../src/types/sale.types"
+import * as salesService from "./sales.service"
 
 type GetWin = () => BrowserWindow | null
 
-const loadReceiptWindow = async (sale: SaleWithItems): Promise<BrowserWindow> => {
+const loadReceiptWindow = async (
+  sale: SaleWithItems,
+): Promise<BrowserWindow> => {
   const html = buildTicketHtml(sale)
   const receiptWin = new BrowserWindow({ show: false, width: 595, height: 842 })
-  const tmpHtml = path.join(app.getPath('temp'), `receipt-${sale.id}.html`)
-  fs.writeFileSync(tmpHtml, html, 'utf-8')
+  const tmpHtml = path.join(app.getPath("temp"), `receipt-${sale.id}.html`)
+  fs.writeFileSync(tmpHtml, html, "utf-8")
   await receiptWin.loadFile(tmpHtml)
   return receiptWin
 }
@@ -27,19 +30,22 @@ export const printReceipt = async (saleId: number): Promise<boolean> => {
       (success) => {
         receiptWin.destroy()
         resolve(success)
-      }
+      },
     )
   })
 }
 
-export const downloadReceipt = async (saleId: number, getWin: GetWin): Promise<string | null> => {
+export const downloadReceipt = async (
+  saleId: number,
+  getWin: GetWin,
+): Promise<string | null> => {
   const sale = salesService.get(saleId)
   if (!sale) return null
 
   const parentWin = getWin()
   const { canceled, filePath } = await dialog.showSaveDialog(parentWin!, {
     defaultPath: `ticket-${saleId}.pdf`,
-    filters: [{ name: 'PDF', extensions: ['pdf'] }],
+    filters: [{ name: "PDF", extensions: ["pdf"] }],
   })
   if (canceled || !filePath) return null
 
@@ -47,8 +53,8 @@ export const downloadReceipt = async (saleId: number, getWin: GetWin): Promise<s
 
   const pdfBuffer = await receiptWin.webContents.printToPDF({
     printBackground: true,
-    pageSize: 'A4',
-    margins: { marginType: 'default' },
+    pageSize: "A4",
+    margins: { marginType: "default" },
   })
 
   fs.writeFileSync(filePath, pdfBuffer)
@@ -66,9 +72,9 @@ const buildTicketHtml = (sale: SaleWithItems): string => {
       <td style="padding:6px 8px;text-align:center;border-bottom:1px solid #eee">${i.quantity}</td>
       <td style="padding:6px 0;text-align:right;border-bottom:1px solid #eee">${i.unit_price.toFixed(2)} €</td>
       <td style="padding:6px 0;text-align:right;border-bottom:1px solid #eee;font-weight:600">${i.total.toFixed(2)} €</td>
-    </tr>`
+    </tr>`,
     )
-    .join('')
+    .join("")
 
   return `<!DOCTYPE html>
 <html><head><meta charset="UTF-8">
@@ -98,7 +104,7 @@ const buildTicketHtml = (sale: SaleWithItems): string => {
 
   <div class="meta">
     <span>Ticket #${sale.id}</span>
-    <span>${new Date(sale.created_at).toLocaleString('fr-FR')}</span>
+    <span>${new Date(sale.created_at).toLocaleString("fr-FR")}</span>
   </div>
 
   <div class="sep"></div>

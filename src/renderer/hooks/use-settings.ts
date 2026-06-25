@@ -1,6 +1,7 @@
-import { useState, useEffect, useCallback } from 'react'
-import { api } from '@/lib/api'
-import type { AppSettings } from '@/types'
+import { useCallback, useEffect, useState } from "react"
+
+import { api } from "@/lib/api"
+import type { AppSettings } from "@/types"
 
 export const useSettings = () => {
   const [settings, setSettings] = useState<AppSettings | null>(null)

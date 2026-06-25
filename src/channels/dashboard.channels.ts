@@ -1,3 +1,3 @@
 export const DASHBOARD = {
-  SUMMARY: 'dashboard:summary',
+  SUMMARY: "dashboard:summary",
 } as const

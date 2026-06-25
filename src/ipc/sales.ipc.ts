@@ -1,8 +1,9 @@
-import { ipcMain, dialog, shell } from 'electron'
-import { SALES } from '../channels'
-import * as salesService from '../services/sales.service'
-import * as exportService from '../services/export.service'
-import type { Sale } from '../../src/types'
+import { dialog, ipcMain, shell } from "electron"
+
+import type { Sale } from "../../src/types"
+import { SALES } from "../channels"
+import * as exportService from "../services/export.service"
+import * as salesService from "../services/sales.service"
 
 type GetWin = () => Electron.BrowserWindow | null
 
@@ -32,8 +33,8 @@ export function register(getWin: GetWin) {
     if (!win) return null
 
     const { canceled, filePath } = await dialog.showSaveDialog(win, {
-      defaultPath: 'ventes.csv',
-      filters: [{ name: 'CSV', extensions: ['csv'] }],
+      defaultPath: "ventes.csv",
+      filters: [{ name: "CSV", extensions: ["csv"] }],
     })
     if (canceled || !filePath) return null
 
@@ -47,8 +48,8 @@ export function register(getWin: GetWin) {
     if (!win) return null
 
     const { canceled, filePath } = await dialog.showSaveDialog(win, {
-      defaultPath: 'ventes.pdf',
-      filters: [{ name: 'PDF', extensions: ['pdf'] }],
+      defaultPath: "ventes.pdf",
+      filters: [{ name: "PDF", extensions: ["pdf"] }],
     })
     if (canceled || !filePath) return null
 

@@ -1,6 +1,7 @@
-import { ipcMain, dialog } from 'electron'
-import { IMPORT } from '../channels/import.channels'
-import * as importService from '../services/import.service'
+import { dialog, ipcMain } from "electron"
+
+import { IMPORT } from "../channels/import.channels"
+import * as importService from "../services/import.service"
 
 type GetWin = () => Electron.BrowserWindow | null
 
@@ -10,10 +11,10 @@ export const register = (getWin: GetWin) => {
     if (!win) return null
 
     const { canceled, filePaths } = await dialog.showOpenDialog(win, {
-      properties: ['openFile'],
+      properties: ["openFile"],
       filters: [
-        { name: 'CSV', extensions: ['csv', 'txt'] },
-        { name: 'Tous', extensions: ['*'] },
+        { name: "CSV", extensions: ["csv", "txt"] },
+        { name: "Tous", extensions: ["*"] },
       ],
     })
 

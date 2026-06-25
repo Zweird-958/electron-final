@@ -1,9 +1,9 @@
-import * as salesRepo from '../repositories/sales.repository'
-import type { DashboardData } from '../../src/types/dashboard.types'
+import type { DashboardData } from "../../src/types/dashboard.types"
+import * as salesRepo from "../repositories/sales.repository"
 
 export const getSummary = (): DashboardData => {
-  const today = new Date().toISOString().split('T')[0]
-  const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0]
+  const today = new Date().toISOString().split("T")[0]
+  const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0]
 
   const todaySales = salesRepo.findByDate(today)
   const yesterdaySales = salesRepo.findByDate(yesterday)

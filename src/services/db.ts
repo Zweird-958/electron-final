@@ -1,16 +1,17 @@
-import Database from 'better-sqlite3'
-import path from 'node:path'
-import { app } from 'electron'
-import log from './logger'
+import Database from "better-sqlite3"
+import { app } from "electron"
+import path from "node:path"
 
-const dbPath = path.join(app.getPath('userData'), 'caisse.db')
+import log from "./logger"
+
+const dbPath = path.join(app.getPath("userData"), "caisse.db")
 const db = new Database(dbPath)
 
-db.pragma('journal_mode = WAL')
-db.pragma('foreign_keys = ON')
+db.pragma("journal_mode = WAL")
+db.pragma("foreign_keys = ON")
 
 function migrate() {
-  const version = db.pragma('user_version', { simple: true }) as number
+  const version = db.pragma("user_version", { simple: true }) as number
 
   if (version < 1) {
     db.exec(`
@@ -51,18 +52,18 @@ function migrate() {
       CREATE INDEX idx_sales_created_at ON sales(created_at);
       CREATE INDEX idx_sale_items_sale_id ON sale_items(sale_id);
     `)
-    db.pragma('user_version = 1')
-    log.info('Database migrated to v1')
+    db.pragma("user_version = 1")
+    log.info("Database migrated to v1")
   }
 
   if (version < 2) {
     db.exec(`ALTER TABLE products ADD COLUMN stock INTEGER NOT NULL DEFAULT 0`)
-    db.pragma('user_version = 2')
-    log.info('Database migrated to v2 (added stock)')
+    db.pragma("user_version = 2")
+    log.info("Database migrated to v2 (added stock)")
   }
 }
 
 migrate()
-log.info('Database ready at', dbPath)
+log.info("Database ready at", dbPath)
 
 export default db

@@ -1,15 +1,16 @@
-import Store from 'electron-store'
+import Store from "electron-store"
+
+import type { AppSettings } from "../../src/types/settings.types"
 import {
   DEFAULT_LANGUAGE,
   DEFAULT_THEME,
-  DEFAULT_WINDOW_WIDTH,
   DEFAULT_WINDOW_HEIGHT,
   DEFAULT_WINDOW_MAXIMIZED,
+  DEFAULT_WINDOW_WIDTH,
   LANGUAGE_STORE_KEY,
   THEME_STORE_KEY,
   WINDOW_STORE_KEY,
-} from '../constants/settings.constants'
-import type { AppSettings } from '../../src/types/settings.types'
+} from "../constants/settings.constants"
 
 const store = new Store<AppSettings>({
   defaults: {

@@ -1,40 +1,37 @@
 {
-  "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
-  "appId": "com.epicerie.caisse",
-  "productName": "Caisse Epicerie",
-  "asar": true,
-  "directories": {
-    "output": "release/${version}"
+  $schema: "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
+  appId: "com.epicerie.caisse",
+  productName: "Caisse Epicerie",
+  asar: true,
+  directories: {
+    output: "release/${version}",
   },
-  "files": [
-    "dist",
-    "dist-electron"
-  ],
-  "mac": {
-    "target": ["dmg"],
-    "icon": "assets/icon.icns",
-    "artifactName": "${productName}-Mac-${version}-Installer.${ext}"
+  files: ["dist", "dist-electron"],
+  mac: {
+    target: ["dmg"],
+    icon: "assets/icon.icns",
+    artifactName: "${productName}-Mac-${version}-Installer.${ext}",
   },
-  "win": {
-    "target": [
+  win: {
+    target: [
       {
-        "target": "nsis",
-        "arch": ["x64"]
-      }
+        target: "nsis",
+        arch: ["x64"],
+      },
     ],
-    "icon": "assets/icon.ico",
-    "artifactName": "${productName}-Windows-${version}-Setup.${ext}"
+    icon: "assets/icon.ico",
+    artifactName: "${productName}-Windows-${version}-Setup.${ext}",
   },
-  "nsis": {
-    "oneClick": false,
-    "perMachine": false,
-    "allowToChangeInstallationDirectory": true,
-    "deleteAppDataOnUninstall": false,
-    "createDesktopShortcut": true
+  nsis: {
+    oneClick: false,
+    perMachine: false,
+    allowToChangeInstallationDirectory: true,
+    deleteAppDataOnUninstall: false,
+    createDesktopShortcut: true,
   },
-  "linux": {
-    "target": ["AppImage"],
-    "icon": "assets/icon.png",
-    "artifactName": "${productName}-Linux-${version}.${ext}"
-  }
+  linux: {
+    target: ["AppImage"],
+    icon: "assets/icon.png",
+    artifactName: "${productName}-Linux-${version}.${ext}",
+  },
 }

@@ -1,6 +1,7 @@
-import { useState, useCallback, useMemo } from 'react'
-import { api } from '@/lib/api'
-import type { Product, CartItem } from '@/types'
+import { useCallback, useMemo, useState } from "react"
+
+import { api } from "@/lib/api"
+import type { CartItem, Product } from "@/types"
 
 export const useCart = () => {
   const [items, setItems] = useState<CartItem[]>([])
@@ -14,9 +15,7 @@ export const useCart = () => {
 
       if (existing) {
         return prev.map((i) =>
-          i.product.id === product.id
-            ? { ...i, quantity: i.quantity + 1 }
-            : i
+          i.product.id === product.id ? { ...i, quantity: i.quantity + 1 } : i,
         )
       }
       return [...prev, { product, quantity: 1 }]
@@ -45,19 +44,19 @@ export const useCart = () => {
   const total = useMemo(
     () =>
       Math.round(
-        items.reduce((sum, i) => sum + i.product.price * i.quantity, 0) * 100
+        items.reduce((sum, i) => sum + i.product.price * i.quantity, 0) * 100,
       ) / 100,
-    [items]
+    [items],
   )
 
   const itemsCount = useMemo(
     () => items.reduce((sum, i) => sum + i.quantity, 0),
-    [items]
+    [items],
   )
 
   const cartQuantities = useMemo(
     () => Object.fromEntries(items.map((i) => [i.product.id, i.quantity])),
-    [items]
+    [items],
   )
 
   const checkout = useCallback(async () => {
@@ -76,5 +75,15 @@ export const useCart = () => {
     return saleId
   }, [items, clear])
 
-  return { items, total, itemsCount, cartQuantities, addProduct, updateQuantity, removeItem, clear, checkout }
+  return {
+    items,
+    total,
+    itemsCount,
+    cartQuantities,
+    addProduct,
+    updateQuantity,
+    removeItem,
+    clear,
+    checkout,
+  }
 }

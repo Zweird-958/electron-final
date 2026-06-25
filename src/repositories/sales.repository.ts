@@ -1,18 +1,22 @@
-import db from '../services/db'
-import type { Sale, SaleItem } from '../../src/types/sale.types'
+import type { Sale, SaleItem } from "../../src/types/sale.types"
+import db from "../services/db"
 
 const queryInsertSale = db.prepare(
-  'INSERT INTO sales (total, items_count) VALUES (?, ?)'
+  "INSERT INTO sales (total, items_count) VALUES (?, ?)",
 )
 const queryInsertSaleItem = db.prepare(
-  'INSERT INTO sale_items (sale_id, product_id, product_name, quantity, unit_price, total) VALUES (?, ?, ?, ?, ?, ?)'
+  "INSERT INTO sale_items (sale_id, product_id, product_name, quantity, unit_price, total) VALUES (?, ?, ?, ?, ?, ?)",
 )
-const queryListSales = db.prepare('SELECT * FROM sales ORDER BY created_at DESC')
+const queryListSales = db.prepare(
+  "SELECT * FROM sales ORDER BY created_at DESC",
+)
 const queryFindSalesByDate = db.prepare(
-  `SELECT * FROM sales WHERE date(created_at) = date(?) ORDER BY created_at DESC`
+  `SELECT * FROM sales WHERE date(created_at) = date(?) ORDER BY created_at DESC`,
 )
-const queryFindSaleById = db.prepare('SELECT * FROM sales WHERE id = ?')
-const queryFindSaleItemsBySaleId = db.prepare('SELECT * FROM sale_items WHERE sale_id = ?')
+const queryFindSaleById = db.prepare("SELECT * FROM sales WHERE id = ?")
+const queryFindSaleItemsBySaleId = db.prepare(
+  "SELECT * FROM sale_items WHERE sale_id = ?",
+)
 const queryTopProductsByDate = db.prepare(`
   SELECT si.product_name as name, SUM(si.quantity) as quantity
   FROM sale_items si
@@ -34,9 +38,16 @@ export function insertSaleItem(
   productName: string,
   quantity: number,
   unitPrice: number,
-  total: number
+  total: number,
 ): void {
-  queryInsertSaleItem.run(saleId, productId, productName, quantity, unitPrice, total)
+  queryInsertSaleItem.run(
+    saleId,
+    productId,
+    productName,
+    quantity,
+    unitPrice,
+    total,
+  )
 }
 
 export function findAll(): Sale[] {
@@ -55,8 +66,13 @@ export function findItemsBySaleId(saleId: number): SaleItem[] {
   return queryFindSaleItemsBySaleId.all(saleId) as SaleItem[]
 }
 
-export function findTopProductsByDate(date: string): { name: string; quantity: number }[] {
-  return queryTopProductsByDate.all(date) as { name: string; quantity: number }[]
+export function findTopProductsByDate(
+  date: string,
+): { name: string; quantity: number }[] {
+  return queryTopProductsByDate.all(date) as {
+    name: string
+    quantity: number
+  }[]
 }
 
 const queryTopProductsRevenueByDate = db.prepare(`
@@ -75,14 +91,30 @@ const queryTotalItemsSoldByDate = db.prepare(`
 `)
 
 const queryRecentSales = db.prepare(
-  'SELECT id, total, items_count, created_at FROM sales ORDER BY created_at DESC LIMIT 10'
+  "SELECT id, total, items_count, created_at FROM sales ORDER BY created_at DESC LIMIT 10",
 )
 
-export const findTopProductsRevenueByDate = (date: string): { name: string; quantity: number; revenue: number }[] =>
-  queryTopProductsRevenueByDate.all(date) as { name: string; quantity: number; revenue: number }[]
+export const findTopProductsRevenueByDate = (
+  date: string,
+): { name: string; quantity: number; revenue: number }[] =>
+  queryTopProductsRevenueByDate.all(date) as {
+    name: string
+    quantity: number
+    revenue: number
+  }[]
 
 export const totalItemsSoldByDate = (date: string): number =>
   (queryTotalItemsSoldByDate.get(date) as { total: number }).total
 
-export const findRecentSales = (): { id: number; total: number; items_count: number; created_at: string }[] =>
-  queryRecentSales.all() as { id: number; total: number; items_count: number; created_at: string }[]
+export const findRecentSales = (): {
+  id: number
+  total: number
+  items_count: number
+  created_at: string
+}[] =>
+  queryRecentSales.all() as {
+    id: number
+    total: number
+    items_count: number
+    created_at: string
+  }[]

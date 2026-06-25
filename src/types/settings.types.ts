@@ -1,6 +1,6 @@
 export type AppSettings = {
-  language: 'fr' | 'en'
-  theme: 'light' | 'dark' | 'system'
+  language: "fr" | "en"
+  theme: "light" | "dark" | "system"
   window: {
     width: number
     height: number

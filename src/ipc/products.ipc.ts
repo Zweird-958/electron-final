@@ -1,8 +1,9 @@
-import { ipcMain } from 'electron'
-import { PRODUCTS } from '../channels'
-import * as productsService from '../services/products.service'
-import * as offService from '../services/openfoodfacts.service'
-import type { ProductInput } from '../../src/types'
+import { ipcMain } from "electron"
+
+import type { ProductInput } from "../../src/types"
+import { PRODUCTS } from "../channels"
+import * as offService from "../services/openfoodfacts.service"
+import * as productsService from "../services/products.service"
 
 export function register() {
   ipcMain.handle(PRODUCTS.LIST, () => {
@@ -32,9 +33,9 @@ export function register() {
   ipcMain.handle(PRODUCTS.LOOKUP_BARCODE, async (_e, barcode: string) => {
     const existing = productsService.getByBarcode(barcode)
     if (existing) {
-      return { ok: true, data: existing, source: 'local' as const }
+      return { ok: true, data: existing, source: "local" as const }
     }
     const result = await offService.lookupBarcode(barcode)
-    return { ...result, source: 'openfoodfacts' as const }
+    return { ...result, source: "openfoodfacts" as const }
   })
 }
