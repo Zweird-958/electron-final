@@ -34,9 +34,6 @@ process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL
 let win: BrowserWindow | null = null
 let tray: Tray | null = null
 
-
-
-
 const createWindow = () => {
   const settings = settingsService.get()
   const wConf = settings.window
