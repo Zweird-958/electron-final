@@ -31,6 +31,16 @@ This runs TypeScript compilation, Vite bundling, and electron-builder packaging 
 | Windows  | `.exe` (NSIS) | `Caisse Epicerie-Windows-<version>-Setup.exe` |
 | Linux    | `.AppImage`   | `Caisse Epicerie-Linux-<version>.AppImage`    |
 
+## macOS — unsigned app
+
+The app is not notarized with Apple. macOS will block it on first launch. To fix this, run:
+
+```bash
+xattr -cr /Applications/Caisse\ Epicerie.app
+```
+
+Or right-click the app and select **Open** to bypass Gatekeeper.
+
 ## Other scripts
 
 | Command           | Description                                       |
