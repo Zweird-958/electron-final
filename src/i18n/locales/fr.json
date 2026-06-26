@@ -1,13 +1,13 @@
 {
   "nav": {
-    "pos": "Caisse",
+    "catalog": "Catalogue",
     "products": "Produits",
     "sales": "Ventes",
     "dashboard": "Tableau de bord",
     "settings": "Paramètres"
   },
-  "pos": {
-    "title": "Point de vente",
+  "catalog": {
+    "title": "Catalogue",
     "search": "Rechercher un produit ou scanner un code-barres…",
     "cart": "Panier",
     "cartEmpty": "Le panier est vide",

@@ -11,7 +11,7 @@ import { NavLink } from "react-router-dom"
 import { cn } from "@/lib/utils"
 
 const links = [
-  { to: "/", icon: ShoppingCart, labelKey: "nav.pos" },
+  { to: "/", icon: ShoppingCart, labelKey: "nav.catalog" },
   { to: "/dashboard", icon: LayoutDashboard, labelKey: "nav.dashboard" },
   { to: "/products", icon: Package, labelKey: "nav.products" },
   { to: "/sales", icon: Receipt, labelKey: "nav.sales" },

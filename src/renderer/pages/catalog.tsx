@@ -3,11 +3,11 @@ import { useTranslation } from "react-i18next"
 import { toast } from "sonner"
 
 import { api } from "@/lib/api"
-import { Cart } from "@/renderer/components/pos/cart"
-import { ProductSearch } from "@/renderer/components/pos/product-search"
+import { Cart } from "@/renderer/components/catalog/cart"
+import { ProductSearch } from "@/renderer/components/catalog/product-search"
 import { useCart } from "@/renderer/hooks/use-cart"
 
-export const PosPage = () => {
+export const CatalogPage = () => {
   const { t } = useTranslation()
   const {
     items,
@@ -26,11 +26,11 @@ export const PosPage = () => {
     const saleId = await checkout()
     if (saleId) {
       setRefreshKey((k) => k + 1)
-      toast.success(t("pos.saleSuccess"), {
+      toast.success(t("catalog.saleSuccess"), {
         description: `Ticket #${saleId} — ${total.toFixed(2)} €`,
       })
       await api.system.notify(
-        t("pos.saleSuccess"),
+        t("catalog.saleSuccess"),
         `Ticket #${saleId} — ${total.toFixed(2)} €`,
       )
     }

@@ -53,7 +53,7 @@ export const ProductSearch = ({
         <Input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder={t("pos.search")}
+          placeholder={t("catalog.search")}
           className="pl-9"
         />
       </div>

@@ -8,7 +8,7 @@ import { MenuNavigator } from "@/renderer/components/menu-navigator"
 import { Toaster } from "@/renderer/components/ui/sonner"
 import { TooltipProvider } from "@/renderer/components/ui/tooltip"
 import { DashboardPage } from "@/renderer/pages/dashboard"
-import { PosPage } from "@/renderer/pages/pos"
+import { CatalogPage } from "@/renderer/pages/catalog"
 import { ProductsPage } from "@/renderer/pages/products"
 import { SalesPage } from "@/renderer/pages/sales"
 import { SettingsPage } from "@/renderer/pages/settings"
@@ -45,7 +45,7 @@ const App = () => {
         <MenuNavigator />
         <Routes>
           <Route element={<AppLayout />}>
-            <Route path="/" element={<PosPage />} />
+            <Route path="/" element={<CatalogPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/sales" element={<SalesPage />} />

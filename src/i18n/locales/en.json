@@ -1,13 +1,13 @@
 {
   "nav": {
-    "pos": "POS",
+    "catalog": "Catalog",
     "products": "Products",
     "sales": "Sales",
     "dashboard": "Dashboard",
     "settings": "Settings"
   },
-  "pos": {
-    "title": "Point of Sale",
+  "catalog": {
+    "title": "Catalog",
     "search": "Search a product or scan a barcode…",
     "cart": "Cart",
     "cartEmpty": "Cart is empty",

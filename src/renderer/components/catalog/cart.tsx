@@ -30,7 +30,7 @@ export const Cart = ({
       <div className="border-border flex items-center justify-between border-b px-4 py-3">
         <div className="flex items-center gap-2">
           <ShoppingCart className="size-4" />
-          <h2 className="text-sm font-semibold">{t("pos.cart")}</h2>
+          <h2 className="text-sm font-semibold">{t("catalog.cart")}</h2>
           {itemsCount > 0 && (
             <span className="bg-primary text-primary-foreground rounded-full px-2 py-0.5 text-xs font-medium">
               {itemsCount}
@@ -39,7 +39,7 @@ export const Cart = ({
         </div>
         {items.length > 0 && (
           <Button variant="ghost" size="xs" onClick={onClear}>
-            {t("pos.cartClear")}
+            {t("catalog.cartClear")}
           </Button>
         )}
       </div>
@@ -47,7 +47,7 @@ export const Cart = ({
       <div className="flex-1 overflow-auto p-3">
         {items.length === 0 ? (
           <p className="text-muted-foreground py-12 text-center text-sm">
-            {t("pos.cartEmpty")}
+            {t("catalog.cartEmpty")}
           </p>
         ) : (
           <div className="space-y-2">
@@ -110,7 +110,7 @@ export const Cart = ({
 
       <div className="border-border border-t p-4">
         <div className="mb-3 flex items-center justify-between">
-          <span className="text-sm font-medium">{t("pos.cartTotal")}</span>
+          <span className="text-sm font-medium">{t("catalog.cartTotal")}</span>
           <span className="text-2xl font-bold">{total.toFixed(2)} €</span>
         </div>
         <Button
@@ -119,7 +119,7 @@ export const Cart = ({
           onClick={onCheckout}
           disabled={items.length === 0}
         >
-          {t("pos.cartValidate")}
+          {t("catalog.cartValidate")}
         </Button>
       </div>
     </div>
