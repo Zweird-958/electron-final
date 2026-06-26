@@ -1,6 +1,6 @@
 # Caisse Epicerie
 
-Desktop point-of-sale (POS) application for a grocery store, built with Electron, React, and SQLite.
+Desktop catalog and point-of-sale application for a grocery store, built with Electron, React, and SQLite.
 
 ## Prerequisites
 
@@ -54,12 +54,14 @@ Or right-click the app and select **Open** to bypass Gatekeeper.
 ```
 ├── electron/                 # Main process (Electron / Node)
 │   ├── main.ts               # App entry, window creation
-│   ├── preload.ts            # Context-bridge (renderer ↔ main)
+│   └── preload.ts            # Context-bridge (renderer ↔ main)
+├── src/
 │   ├── channels/             # IPC channel name constants
+│   ├── constants/            # App constants
 │   ├── ipc/                  # IPC handlers (one file per domain)
-│   ├── repositories/         # SQL queries (better-sqlite3)
 │   ├── services/             # Business logic, external APIs
-│   │   ├── db.ts             # Database init & migrations
+│   │   ├── db.ts             # Database init & schema
+│   │   ├── schema.ts         # SQL schema (CREATE IF NOT EXISTS)
 │   │   ├── products.service.ts
 │   │   ├── sales.service.ts
 │   │   ├── dashboard.service.ts
@@ -69,20 +71,16 @@ Or right-click the app and select **Open** to bypass Gatekeeper.
 │   │   ├── openfoodfacts.service.ts # Barcode lookup API
 │   │   ├── settings.service.ts
 │   │   └── logger.ts
-│   └── constants/
-├── src/                      # Renderer process (React)
-│   ├── App.tsx               # Router & theme init
-│   ├── main.tsx              # React entry
-│   ├── pages/                # Route-level components
-│   ├── components/           # Shared & domain components
-│   │   ├── ui/               # shadcn/ui primitives
-│   │   ├── layout/           # App shell, sidebar
-│   │   ├── pos/              # POS-specific (cart, product search)
-│   │   ├── products/         # Product table, form dialog
-│   │   ├── sales/            # Sale detail, summary cards
-│   │   ├── dashboard/        # Stat cards, top products, recent sales
-│   │   └── settings/         # Updater card
-│   ├── hooks/                # React hooks (use-cart, use-products, …)
+│   ├── renderer/             # Renderer process (React)
+│   │   ├── pages/            # Route-level components
+│   │   ├── components/       # Shared & domain components
+│   │   │   ├── ui/           # shadcn/ui primitives
+│   │   │   ├── layout/       # App shell, sidebar
+│   │   │   ├── catalog/      # Catalog view (cart, product search)
+│   │   │   ├── products/     # Product table, form dialog
+│   │   │   ├── sales/        # Sale detail, summary cards
+│   │   │   └── dashboard/    # Stat cards, top products, recent sales
+│   │   └── hooks/            # React hooks (use-cart, use-products, …)
 │   ├── lib/                  # api.ts (IPC wrapper), utils
 │   ├── types/                # TypeScript type definitions
 │   └── i18n/                 # i18next config & locale files (fr, en)
@@ -93,20 +91,19 @@ Or right-click the app and select **Open** to bypass Gatekeeper.
 
 ## Tech stack
 
-| Layer       | Technology                              |
-| ----------- | --------------------------------------- |
-| Framework   | Electron 30                             |
-| Renderer    | React 19, React Router, Vite            |
-| Styling     | Tailwind CSS 4, shadcn/ui, Lucide icons |
-| Database    | SQLite via better-sqlite3 (WAL mode)    |
-| Forms       | react-hook-form + Zod validation        |
-| i18n        | i18next (French & English)              |
-| State       | React hooks (no external state library) |
-| Auto-update | electron-updater                        |
+| Layer     | Technology                              |
+| --------- | --------------------------------------- |
+| Framework | Electron 42                             |
+| Renderer  | React 19, React Router, Vite 8          |
+| Styling   | Tailwind CSS 4, shadcn/ui, Lucide icons |
+| Database  | SQLite via better-sqlite3 (WAL mode)    |
+| Forms     | react-hook-form + Zod validation        |
+| i18n      | i18next (French & English)              |
+| State     | React hooks (no external state library) |
 
 ## Database
 
-SQLite database stored at `<userData>/caisse.db`. Migrations run automatically on startup (versioned with `PRAGMA user_version`).
+SQLite database stored at `<userData>/caisse.db`. Tables are created automatically on startup using `CREATE TABLE IF NOT EXISTS`.
 
 **Tables:**
 
@@ -116,9 +113,9 @@ SQLite database stored at `<userData>/caisse.db`. Migrations run automatically o
 
 ## Pages & features
 
-### POS (`/`)
+### Catalog (`/`)
 
-The main cash register view. Search or scan products, add them to a cart, adjust quantities, and check out. Completing a sale decrements stock and shows a system notification.
+The main catalog view. Search or scan products, add them to a cart, adjust quantities, and check out. Completing a sale decrements stock and shows a system notification.
 
 ### Dashboard (`/dashboard`)
 
@@ -145,7 +142,6 @@ Browse all recorded sales with date filtering (today / all / specific date). Eac
 
 - **Language** — switch between French and English
 - **Theme** — light, dark, or system
-- **Updates** — check for updates, download, and restart to install (via electron-updater)
 
 ## CSV import
 
