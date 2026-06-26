@@ -34,6 +34,9 @@ process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL
 let win: BrowserWindow | null = null
 let tray: Tray | null = null
 
+
+
+
 const createWindow = () => {
   const settings = settingsService.get()
   const wConf = settings.window
@@ -161,6 +164,14 @@ const createMenu = () => {
 
 const gotLock = app.requestSingleInstanceLock()
 
+const start = () => {
+  registerAllHandlers(() => win)
+  createWindow()
+  createMenu()
+  createTray()
+  log.info("Caisse app started — v" + app.getVersion())
+}
+
 if (!gotLock) {
   app.quit()
 } else {
@@ -173,14 +184,6 @@ if (!gotLock) {
   })
 
   app.whenReady().then(start)
-}
-
-function start() {
-  registerAllHandlers(() => win)
-  createWindow()
-  createMenu()
-  createTray()
-  log.info("Caisse app started — v" + app.getVersion())
 }
 
 process.on("uncaughtException", (err) => log.error("uncaughtException", err))
